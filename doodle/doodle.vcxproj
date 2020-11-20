@@ -101,16 +101,22 @@ xcopy /y /d "$(SolutionDir)external\SFML\$(Platform)\bin\sfml-system-2.dll" "$(T
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleMain.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Sketch.cpp" />
+    <ClCompile Include="bullet.cpp" />
+    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="WinMain.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sketch.h" />
+    <ClInclude Include="bullet.h" />
+    <ClInclude Include="enemy.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="main_header.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="pos.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
