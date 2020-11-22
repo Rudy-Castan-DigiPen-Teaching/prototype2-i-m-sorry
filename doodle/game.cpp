@@ -111,7 +111,7 @@ void GameScene::draw_cards(void)
     double x_increase{ Width / 30. };
     for (auto p : index_type_map)
     {
-        draw_rectangle(x,0,50,50);
+        //draw_rectangle(x,0,50,50);
         draw_text(to_string(static_cast<int>(p.second)), x += x_increase, 0);
         //0: Pistol, 1: Artillery, 2: Fireball, 3: Laser, 4: Nuclear
     }

@@ -30,12 +30,13 @@ int main(void)
             clear_background(0);
             gamescene.draw_cards();
             gamescene.draw_aim();
-            for (auto p : index_type_map)
+
+            for (auto p:index_type_map)
             {
                 gamescene.push_bullets(p.second);
                 gamescene.draw_bullets(p.second);
-                index_type_map.erase(p.first);
             }
+            
             
             IsMouseReleased = false;
         }
@@ -50,6 +51,10 @@ void on_mouse_released(MouseButtons button)
     {
         if (button == MouseButtons::Left)
         {
+            if (!index_type_map.empty())
+            {
+                index_type_map.erase(index_type_map.begin());
+            }
             IsMouseReleased = true;
         }
     }
