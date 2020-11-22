@@ -13,6 +13,8 @@ void BuyScene::buyBullet(KeyboardButtons button)
                 if (index_type_map.find(index) == index_type_map.end()) //check if the key word(index) exists
                 {
                     index_type_map.insert(make_pair(index, Bullet_Type::Pistol));
+                    bullet_count[0]++;
+                    
                     break;
                 }
             }
@@ -33,6 +35,8 @@ void BuyScene::buyBullet(KeyboardButtons button)
                 if (index_type_map.find(index) == index_type_map.end())
                 {
                     index_type_map.insert(make_pair(index, Bullet_Type::Artillery));
+                    bullet_count[1]++;
+                    
                     break;
                 }
             }
@@ -53,6 +57,8 @@ void BuyScene::buyBullet(KeyboardButtons button)
                 if (index_type_map.find(index) == index_type_map.end())
                 {
                     index_type_map.insert(make_pair(index, Bullet_Type::Fireball));
+                    bullet_count[2]++;
+                    
                     break;
                 }
             }
@@ -73,6 +79,8 @@ void BuyScene::buyBullet(KeyboardButtons button)
                 if (index_type_map.find(index) == index_type_map.end())
                 {
                     index_type_map.insert(make_pair(index, Bullet_Type::Laser));
+                    bullet_count[3]++;
+                    
                     break;
                 }
             }
@@ -93,6 +101,8 @@ void BuyScene::buyBullet(KeyboardButtons button)
                 if (index_type_map.find(index) == index_type_map.end())
                 {
                     index_type_map.insert(make_pair(index, Bullet_Type::Nuclear));
+                    bullet_count[4]++;
+                    
                     break;
                 }
             }
@@ -121,5 +131,19 @@ void BuyScene::draw_button(void)
     draw_text("4: Laser", x, Height / 2);
     draw_rectangle(x += x_increase, Height / 2, 200.);
     draw_text("5: Nuclear", x, Height / 2);
+    pop_settings();
+}
+
+void BuyScene::draw_count(void)
+{
+    double x{ Width / 10. };
+    double x_increase{ Width / 6. };
+
+    push_settings();
+    draw_text(to_string(bullet_count[0]), x, Height/2 -100.);
+    draw_text(to_string(bullet_count[1]), x += x_increase, Height / 2 - 100.);
+    draw_text(to_string(bullet_count[2]), x += x_increase, Height / 2 - 100.);
+    draw_text(to_string(bullet_count[3]), x += x_increase, Height / 2 - 100.);
+    draw_text(to_string(bullet_count[4]), x += x_increase, Height / 2 - 100.);
     pop_settings();
 }

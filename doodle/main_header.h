@@ -10,9 +10,10 @@
 #include "pos.h"
 using namespace std;
 using namespace doodle;
-extern double getDegree(double x, double y);
-inline bool IsMouseReleased = false;
-inline int MONEY{ 2000 };
+namespace helper {
+    extern double getDegree(double x, double y);
+    extern double getDistance(Pos pos1, Pos pos2);
+}
 
 enum class Bullet_Type
 {
@@ -32,10 +33,11 @@ enum class MenuType
 
 enum class Enemy_Type
 {
-
+    Air,
+    Ground
 };
 
-
-
+inline int MONEY{ 2050 };
+inline MenuType MENU{ MenuType::Purchase };
 inline map<double, Bullet_Type> index_type_map;
 
