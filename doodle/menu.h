@@ -11,4 +11,5 @@ public:
 	void buyBullet(KeyboardButtons button);
 	void draw_button();
 	void draw_count();
+	void reset_count();
 };

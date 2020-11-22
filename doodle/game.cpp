@@ -1,5 +1,39 @@
 #include "game.h"
 
+void GameScene::next_level()
+{
+    if (enemies.empty() && MENU == MenuType::In_Game && remaning_enemy == 0)
+    {
+        LEVEL++;
+        MONEY += LEVEL * STARTMONEY;
+        remaning_enemy = LEVEL * 3;
+        timer = 0;
+        MENU = MenuType::Purchase;
+        bullets.clear();
+        index_type_map.clear();
+    }
+}
+
+
+void GameScene::new_level()
+{
+        if(timer%500 == 0 && remaning_enemy != 0)
+        {
+            int randomize = random(0, 100);
+            if (randomize % 2 == 0) {
+                push_enemy(Enemy_Type::Air);
+            }
+            else
+            {
+                push_enemy(Enemy_Type::Ground);
+            }
+            remaning_enemy--;
+        }
+        timer++;
+}
+
+
+
 void GameScene::push_bullets(Bullet_Type bulletType)
 {
         Bullet bullet;
@@ -38,16 +72,17 @@ void GameScene::push_enemy(Enemy_Type enemyType)
     case Enemy_Type::Air:
         enemy.set_size(60);
         enemy.set_position(Width, Height * 0.8);
-        enemy.set_velocity(100);
+        enemy.set_velocity(100 + 100 * LEVEL / 10);
         enemy.set_color({ 255, 255, 0});
         break;
     case Enemy_Type::Ground:
         enemy.set_size(100);
         enemy.set_position(Width, enemy.get_size()*.5);
-        enemy.set_velocity(100);
+        enemy.set_velocity(100 + 100 * LEVEL / 10);
         enemy.set_color({ 255, 0 ,255 });
         break;
     }
+    enemy.set_health(LEVEL/5 + 1);
     enemies.push_back(enemy);
 }
 
@@ -203,7 +238,14 @@ void GameScene::EraseEnemieByCollision()
         {
             if(helper::getDistance(bullets[b].get_position(),enemies[e].get_position()) <= bullets[b].get_size()/2 + enemies[e].get_size()/2)
             {
-                enemies.erase(enemies.begin() + e);
+                if(enemies[e].get_health() > 0)
+                {
+                    enemies[e].health_decrease();
+                }
+                else if(enemies[e].get_health() == 0)
+                {
+                    enemies.erase(enemies.begin() + e);
+                }
             }
         }
     }

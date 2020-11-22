@@ -19,39 +19,58 @@ namespace helper
     }
 }
 
-int main(void)
+int main(void) try
 {
-    create_window("prototype2 by I'm sorry");
+    create_window("Bullet Defense by I'm sorry");
     set_frame_of_reference(FrameOfReference::RightHanded_OriginBottomLeft);
+    
+    ifstream in{ "Bullet_Defense.txt" };
+    if (!in)
+    {
+        ofstream out{ "Bullet_Defense.txt" };
+    } 
+    in>>MONEY;
+    in>>LEVEL;
+    in.close();
+    ofstream out{ "Bullet_Defense.txt" };
+    
     while (!is_window_closed())
     {
         update_window();
         clear_background(120);
         switch (MENU)
         {
-        case MenuType::Purchase:
-            draw_text("Gold: " + to_string(MONEY), 0, Height - 100.);
-            draw_text("Press S to start new wave", 0, 0);
-            buyscene.draw_button();
-            buyscene.draw_count();
-            break;
-        case MenuType::In_Game:
-            gamescene.draw_cards();
-            gamescene.draw_aim();
-            gamescene.draw_bullets();
-            gamescene.erase_bullet();
-
-            gamescene.draw_enemy();
-            gamescene.move_enmey();
-            gamescene.erase_enemy();
-            gamescene.EraseEnemieByCollision();
-            break;
-        case MenuType::Game_Over:
-            clear_background(0);
-            break;
+            case MenuType::Purchase:
+                draw_text("Gold: " + to_string(MONEY), 0, Height - 100.);
+                draw_text("Press S to start new wave", 0, 0);
+                buyscene.draw_button();
+                buyscene.draw_count();
+                break;
+            case MenuType::In_Game:
+                gamescene.new_level();
+                gamescene.draw_cards();
+                gamescene.draw_aim();
+                gamescene.draw_bullets();
+                gamescene.erase_bullet();
+                gamescene.draw_enemy();
+                gamescene.move_enmey();
+                gamescene.erase_enemy();
+                gamescene.EraseEnemieByCollision();
+                gamescene.next_level();
+                break;
+            case MenuType::Game_Over:
+                clear_background(0);
+                out.close();
+                break;
         }
     }
+    out.close();
     return 0;
+}
+catch (exception& e)
+{
+    cerr << "Error: " << e.what() << endl;
+    return -1;
 }
 
 void on_mouse_pressed(MouseButtons button)
@@ -60,7 +79,6 @@ void on_mouse_pressed(MouseButtons button)
     {
         if (button == MouseButtons::Left)
         {
-            gamescene.push_enemy(Enemy_Type::Air);
             if (!index_type_map.empty())
             {
                 gamescene.push_bullets(index_type_map.begin()->second);
@@ -78,14 +96,24 @@ void on_key_pressed(KeyboardButtons button)
 {
     if (MENU == MenuType::Purchase)
     {
+        ofstream out{ "Bullet_Defense.txt" };
         switch (button)
         {
-        case KeyboardButtons::S: MENU = MenuType::In_Game; break;
+        case KeyboardButtons::S: 
+            if (!index_type_map.empty())
+            {
+                MENU = MenuType::In_Game;
+                buyscene.reset_count();
+            } else
+            {
+                out << MONEY << " " << LEVEL;
+            }  
+            break;
         case KeyboardButtons::_1:
         case KeyboardButtons::_2:
         case KeyboardButtons::_3:
         case KeyboardButtons::_4:
-        case KeyboardButtons::_5:  buyscene.buyBullet(button); break;
+        case KeyboardButtons::_5: buyscene.buyBullet(button); break;
         default: break;
         }
     }

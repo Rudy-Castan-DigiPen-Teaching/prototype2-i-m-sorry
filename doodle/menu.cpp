@@ -147,3 +147,11 @@ void BuyScene::draw_count(void)
     draw_text(to_string(bullet_count[4]), x += x_increase, Height / 2 - 100.);
     pop_settings();
 }
+
+void BuyScene::reset_count()
+{
+    for (int i = 0; i < bullet_count.size(); i++)
+    {
+        bullet_count[i] = 0;
+    }
+}
