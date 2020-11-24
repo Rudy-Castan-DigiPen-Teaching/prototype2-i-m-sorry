@@ -1,3 +1,8 @@
+//Daehyeon Kim, Hyeong Ahn, Sunwoo Lee
+//Prototype-2
+//CS120(GAM100)
+//Fall, 2020
+
 #include "arts.h"
 void arts::PlaySound(int index)
 {
