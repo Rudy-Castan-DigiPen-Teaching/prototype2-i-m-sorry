@@ -179,6 +179,7 @@ void GameScene::draw_bullets()
                 set_fill_color(255, 0, 0, 255);
                 draw_ellipse(i.get_position().x, i.get_position().y, i.get_size());
                 pop_settings();
+                art.PlaySound(LaserSound);
                 break;
             case Bullet_Type::Nuclear: 
                 push_settings();
@@ -251,5 +252,5 @@ void GameScene::EraseEnemieByCollision()
     }
 }
 
-//충돌 체크 1개, 총알이 없어질 조건
-// -> erase 콜
+
+

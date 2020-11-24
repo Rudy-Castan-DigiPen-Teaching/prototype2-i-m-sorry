@@ -4,6 +4,8 @@
 inline BuyScene buyscene;
 inline GameScene gamescene;
 
+
+
 namespace helper
 {
     double getDegree(double x, double y)
@@ -17,13 +19,16 @@ namespace helper
         double disY = pow(pos1.y - pos2.y, 2);
         return sqrt(disX + disY);
     }
+    [[noreturn]] void error(const std::string& s) { throw std::runtime_error(s); }
 }
+
+
 
 int main(void) try
 {
     create_window("Bullet Defense by I'm sorry");
     set_frame_of_reference(FrameOfReference::RightHanded_OriginBottomLeft);
-    
+    gamescene.art.setup();
     ifstream in{ "Bullet_Defense.txt" };
     if (!in)
     {

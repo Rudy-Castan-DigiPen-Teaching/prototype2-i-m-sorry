@@ -7,6 +7,7 @@
 #include <array>
 #include <cmath>
 #include <map>
+#include <SFML/Audio.hpp>
 #include "pos.h"
 using namespace std;
 using namespace doodle;
@@ -14,6 +15,7 @@ using namespace doodle;
 namespace helper {
     extern double getDegree(double x, double y);
     extern double getDistance(Pos pos1, Pos pos2);
+    extern void error(const std::string& s);
 }
 
 enum class Bullet_Type

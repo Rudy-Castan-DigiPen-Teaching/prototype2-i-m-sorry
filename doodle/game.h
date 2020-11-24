@@ -1,6 +1,7 @@
 #pragma once
 #include "bullet.h"
 #include "enemy.h"
+#include "arts.h"
 class GameScene
 {
 private:
@@ -9,6 +10,7 @@ private:
 	int remaning_enemy = LEVEL * 3;
 	int timer = 0;
 public:
+	arts art;
 	void next_level();
 	void new_level();
 	void push_bullets(Bullet_Type bulletType);
