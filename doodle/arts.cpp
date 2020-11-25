@@ -31,8 +31,6 @@ void arts::LoadSound(const std::string& file_path)
 
 void arts::setup()
 {
-
-
     LoadSound("assets/Rock.wav");
     LoadSound("assets/Pistol.ogg");
     LoadSound("assets/Barrier.wav");

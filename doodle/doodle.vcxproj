@@ -125,6 +125,7 @@ xcopy /y /d "$(SolutionDir)external\SFML\$(Platform)\bin\sfml-system-2.dll" "$(T
     <ResourceCompile Include="doodle.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\Copyright_information.png" />
     <Image Include="icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

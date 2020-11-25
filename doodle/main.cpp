@@ -51,7 +51,7 @@ int main(void) try
         {
             case MenuType::Purchase:
                 draw_text("Gold: " + to_string(MONEY), 0, Height - 100.);
-                draw_text("Press S to start new wave", 0, 0);
+                draw_text("Press S to start new wave or save ", 0, 0);
                 buyscene.draw_button();
                 buyscene.draw_count();
                 break;
@@ -112,7 +112,7 @@ void on_key_pressed(KeyboardButtons button)
                 buyscene.reset_count();
             } else
             {
-                out << MONEY << " " << LEVEL;
+                out << MONEY << "\n" << LEVEL;
             }  
             break;
         case KeyboardButtons::D:

@@ -16,6 +16,9 @@
     <Filter Include="Source Files\main">
       <UniqueIdentifier>{41dfdc68-670a-4111-a501-8539b3f7f9a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\assets">
+      <UniqueIdentifier>{10dd2d5b-4c07-43f6-83e7-1e76ccb72a41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -74,6 +77,9 @@
   <ItemGroup>
     <Image Include="icon1.ico">
       <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Copyright_information.png">
+      <Filter>Resource Files\assets</Filter>
     </Image>
   </ItemGroup>
 </Project>

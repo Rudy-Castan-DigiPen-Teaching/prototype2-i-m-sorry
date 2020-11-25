@@ -31,49 +31,48 @@ void GameScene::new_level()
 {
         if(timer % enemy_interver == 0 && remaning_enemy != 0)
         {
-
-                push_enemy();
-
+            push_enemy();
             remaning_enemy--;
         }
         timer++;
 }
 
-
-
 void GameScene::push_bullets(Bullet_Type bulletType)
 {
-        Bullet bullet;
-        switch (bulletType)
-        {
-        case Bullet_Type::Rock: 
-            bullet.set_direction();
-            bullet.set_infor(3000, 100, 75, Bullet_Type::Rock); 
-            art.PlaySound(RockSound);
-            break;
-        case Bullet_Type::Pistol:
-            bullet.set_direction();
-            bullet.set_infor(4000, 10, 50,Bullet_Type::Pistol); 
-            art.PlaySound(PistolSound);
-            break;
-        case Bullet_Type::Barrier: 
-            bullet.set_direction_fixed(0, Height/2);
-            bullet.set_infor(10, 0, Height, Bullet_Type::Barrier);
-            art.PlaySound(BarrierSound);
-            break;
-        case Bullet_Type::Laser:
-            bullet.set_direction();
-            bullet.set_infor(8000, 0, 50, Bullet_Type::Laser); 
-            art.PlaySound(LaserSound);
-            break;
-        case Bullet_Type::Nuclear: 
-            bullet.set_direction_fixed(0, Height/2);
-            bullet.set_infor(1000, 0, Height, Bullet_Type::Nuclear); 
-            art.PlaySound(NuclearSound);
-            break;
-        }
-         // switch로 타입별로 다른 속도랑 무게값(중력) 입력
-        bullets.push_back(bullet);
+    if (bulletType < Bullet_Type::Rock || bulletType > Bullet_Type::Nuclear)
+    {
+        helper::error("failed to match bullet type: " + to_string(static_cast<int>(bulletType)));
+    }
+    Bullet bullet;
+    switch (bulletType)
+    {
+    case Bullet_Type::Rock: 
+        bullet.set_direction();
+        bullet.set_infor(3000, 100, 75, Bullet_Type::Rock); 
+        art.PlaySound(RockSound);
+        break;
+    case Bullet_Type::Pistol:
+        bullet.set_direction();
+        bullet.set_infor(4000, 10, 50,Bullet_Type::Pistol); 
+        art.PlaySound(PistolSound);
+        break;
+    case Bullet_Type::Barrier: 
+        bullet.set_direction_fixed(0, Height/2);
+        bullet.set_infor(10, 0, Height, Bullet_Type::Barrier);
+        art.PlaySound(BarrierSound);
+        break;
+    case Bullet_Type::Laser:
+        bullet.set_direction();
+        bullet.set_infor(8000, 0, 50, Bullet_Type::Laser); 
+        art.PlaySound(LaserSound);
+        break;
+    case Bullet_Type::Nuclear: 
+        bullet.set_direction_fixed(0, Height/2);
+        bullet.set_infor(1000, 0, Height, Bullet_Type::Nuclear); 
+        art.PlaySound(NuclearSound);
+        break;
+    }
+    bullets.push_back(bullet);
 }
 
 void GameScene::push_enemy()
@@ -203,7 +202,7 @@ void GameScene::draw_aim()
     draw_line(aim_x, aim_y - 50, aim_x, aim_y + 50);
     no_fill();
     draw_ellipse(aim_x, aim_y, 30);
-    draw_line(0,500,aim_x,aim_y);
+    draw_line(0,Height/2,aim_x,aim_y);
     pop_settings();
 }
 
@@ -252,7 +251,6 @@ void GameScene::draw_enemy()
     }
     pop_settings();
 }
-//클래스 객체 단위로 총알 한 발을 의미
 
 void GameScene::EraseEnemieByCollision()
 { 

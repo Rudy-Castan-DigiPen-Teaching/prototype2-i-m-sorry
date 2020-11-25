@@ -119,7 +119,7 @@ void BuyScene::buyBullet(KeyboardButtons button)
 
 }
 
-void BuyScene::draw_button(void)
+void BuyScene::draw_button()
 {
     double x{ Width / 10. };
     double x_increase{ Width / 6. };
@@ -138,7 +138,7 @@ void BuyScene::draw_button(void)
     pop_settings();
 }
 
-void BuyScene::draw_count(void)
+void BuyScene::draw_count()
 {
     double x{ Width / 10. };
     double x_increase{ Width / 6. };
