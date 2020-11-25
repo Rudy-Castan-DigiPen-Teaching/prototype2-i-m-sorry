@@ -94,10 +94,6 @@ void on_mouse_pressed(MouseButtons button)
                 index_type_map.erase(index_type_map.begin());
             }
         }
-        else if (button == MouseButtons::Right)
-        {
-            gamescene.push_enemy(Enemy_Type::Ground);
-        }
     }
 }
 
@@ -112,18 +108,24 @@ void on_key_pressed(KeyboardButtons button)
             if (!index_type_map.empty())
             {
                 MENU = MenuType::In_Game;
+                gamescene.start_level();
                 buyscene.reset_count();
             } else
             {
                 out << MONEY << " " << LEVEL;
             }  
             break;
+        case KeyboardButtons::D:
+            MENU=MenuType::Game_Over;
+            break;
         case KeyboardButtons::_1:
         case KeyboardButtons::_2:
         case KeyboardButtons::_3:
         case KeyboardButtons::_4:
         case KeyboardButtons::_5: buyscene.buyBullet(button); break;
+        case KeyboardButtons::M: MONEY += 10000; break;
         default: break;
         }
+        
     }
 }

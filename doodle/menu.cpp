@@ -16,7 +16,7 @@ void BuyScene::buyBullet(KeyboardButtons button)
                 double index = random(0., 100.);
                 if (index_type_map.find(index) == index_type_map.end()) //check if the key word(index) exists
                 {
-                    index_type_map.insert(make_pair(index, Bullet_Type::Pistol));
+                    index_type_map.insert(make_pair(index, Bullet_Type::Rock));
                     bullet_count[0]++;
                     
                     break;
@@ -38,7 +38,7 @@ void BuyScene::buyBullet(KeyboardButtons button)
                 double index = random(0., 100.);
                 if (index_type_map.find(index) == index_type_map.end())
                 {
-                    index_type_map.insert(make_pair(index, Bullet_Type::Artillery));
+                    index_type_map.insert(make_pair(index, Bullet_Type::Pistol));
                     bullet_count[1]++;
                     
                     break;
@@ -60,7 +60,7 @@ void BuyScene::buyBullet(KeyboardButtons button)
                 double index = random(0., 100.);
                 if (index_type_map.find(index) == index_type_map.end())
                 {
-                    index_type_map.insert(make_pair(index, Bullet_Type::Fireball));
+                    index_type_map.insert(make_pair(index, Bullet_Type::Barrier));
                     bullet_count[2]++;
                     
                     break;
@@ -126,11 +126,11 @@ void BuyScene::draw_button(void)
     push_settings();
     set_font_size(30);
     draw_rectangle(x, Height / 2, 200.);
-    draw_text("1: Pistol", x, Height / 2);
+    draw_text("1: Rock", x, Height / 2);
     draw_rectangle(x += x_increase, Height / 2, 200.);
-    draw_text("2: Artillery", x, Height / 2);
+    draw_text("2: Pistol", x, Height / 2);
     draw_rectangle(x += x_increase, Height / 2, 200.);
-    draw_text("3: Fireball", x, Height / 2);
+    draw_text("3: Barrier", x, Height / 2);
     draw_rectangle(x += x_increase, Height / 2, 200.);
     draw_text("4: Laser", x, Height / 2);
     draw_rectangle(x += x_increase, Height / 2, 200.);

@@ -9,10 +9,10 @@
 
 class Bullet
 {
-    Pos startPosition{ 0, 500 };
+    Pos startPosition{ 0, doodle::Height/2. };
     Pos position = startPosition;
     Pos direction{ 0, 0 };
-    Bullet_Type whatType{ Bullet_Type::Pistol };
+    Bullet_Type whatType{ Bullet_Type::Rock };
     double gravity{ 9.8 };
     double velocity{ 0 };
     double acceleration{ 0 };
@@ -26,8 +26,8 @@ public:
     Pos get_position();
     Pos get_start_position();
     double get_size();
-    
+
     void   set_direction();
-    void   set_direction(double, double);
+    void   set_direction_fixed(double, double);
     void   set_infor(double vel, double wei, double size, Bullet_Type what);
 };

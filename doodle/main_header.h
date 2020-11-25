@@ -24,9 +24,9 @@ namespace helper {
 
 enum class Bullet_Type
 {
+    Rock,
     Pistol,
-    Artillery,
-    Fireball,
+    Barrier,
     Laser,
     Nuclear
 };
@@ -37,12 +37,6 @@ enum class MenuType
     Purchase,
     In_Game,
     Game_Over
-};
-
-enum class Enemy_Type
-{
-    Air,
-    Ground
 };
 
 

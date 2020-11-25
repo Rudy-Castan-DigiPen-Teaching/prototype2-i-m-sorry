@@ -21,9 +21,10 @@ void Bullet::set_direction()
                  sin(helper::getDegree(get_mouse_y() - get_position().y, get_mouse_x() - get_position().x)) };
 }
 
-void Bullet::set_direction(double x, double y)
+void Bullet::set_direction_fixed(double x, double y)
 {
-    direction = {x,y};
+    direction = { cos(helper::getDegree(y - get_start_position().y, x - get_start_position().x)),
+                 sin(helper::getDegree(y - get_start_position().y, x - get_start_position().x)) };
 }
 
 void Bullet::set_infor(double vel, double wei, double size,Bullet_Type type)

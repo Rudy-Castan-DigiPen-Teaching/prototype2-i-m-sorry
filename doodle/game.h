@@ -11,14 +11,16 @@ class GameScene
 private:
 	vector<Bullet> bullets;
 	vector<Enemy> enemies;
-	int remaning_enemy = LEVEL * 3;
+	int remaning_enemy = 0;
 	int timer = 0;
+	int enemy_interver{ 400 };
 public:
 	arts art;
+	void start_level();
 	void next_level();
 	void new_level();
 	void push_bullets(Bullet_Type bulletType);
-	void push_enemy(Enemy_Type enemyType);
+	void push_enemy();
 	void move_enmey();
 	void erase_bullet();
 	void erase_enemy();
