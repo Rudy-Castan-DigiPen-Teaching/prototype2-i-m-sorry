@@ -33,15 +33,15 @@ int main(void) try
     create_window("Bullet Defense by I'm sorry");
     set_frame_of_reference(FrameOfReference::RightHanded_OriginBottomLeft);
     gamescene.art.setup();
-    ifstream in{ "Bullet_Defense.txt" };
+    ifstream in{ "assets/Bullet_Defense.txt" };
     if (!in)
     {
-        ofstream out{ "Bullet_Defense.txt" };
+        ofstream out{ "assets/Bullet_Defense.txt" };
     } 
     in>>MONEY;
     in>>LEVEL;
     in.close();
-    ofstream out{ "Bullet_Defense.txt" };
+    ofstream out{ "assets/Bullet_Defense.txt" };
     
     while (!is_window_closed())
     {

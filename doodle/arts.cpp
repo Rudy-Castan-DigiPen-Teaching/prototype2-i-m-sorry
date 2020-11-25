@@ -31,15 +31,11 @@ void arts::LoadSound(const std::string& file_path)
 
 void arts::setup()
 {
-    if (!music.openFromFile("assets/Background.wav"))
-    {
-        helper::error("Failed to load the music file: assets/Background.wav");
-    }
 
+
+    LoadSound("assets/Rock.wav");
+    LoadSound("assets/Pistol.ogg");
+    LoadSound("assets/Barrier.wav");
     LoadSound("assets/Laser.wav");
-
-
-
-    music.setLoop(true);
-    music.play();
+    LoadSound("assets/Nuclear.ogg");
 }

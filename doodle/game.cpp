@@ -49,14 +49,17 @@ void GameScene::push_bullets(Bullet_Type bulletType)
         case Bullet_Type::Rock: 
             bullet.set_direction();
             bullet.set_infor(3000, 100, 75, Bullet_Type::Rock); 
+            art.PlaySound(RockSound);
             break;
         case Bullet_Type::Pistol:
             bullet.set_direction();
             bullet.set_infor(4000, 10, 50,Bullet_Type::Pistol); 
+            art.PlaySound(PistolSound);
             break;
         case Bullet_Type::Barrier: 
             bullet.set_direction_fixed(0, Height/2);
             bullet.set_infor(10, 0, Height, Bullet_Type::Barrier);
+            art.PlaySound(BarrierSound);
             break;
         case Bullet_Type::Laser:
             bullet.set_direction();
@@ -66,6 +69,7 @@ void GameScene::push_bullets(Bullet_Type bulletType)
         case Bullet_Type::Nuclear: 
             bullet.set_direction_fixed(0, Height/2);
             bullet.set_infor(1000, 0, Height, Bullet_Type::Nuclear); 
+            art.PlaySound(NuclearSound);
             break;
         }
          // switch로 타입별로 다른 속도랑 무게값(중력) 입력
