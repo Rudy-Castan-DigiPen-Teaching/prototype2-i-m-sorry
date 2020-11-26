@@ -1,4 +1,4 @@
-//Daehyeon Kim, Hyeong Ahn, Sunwoo Lee
+//Dae Hyeon Kim, Hyoung Won An, Sun Woo Lee
 //Prototype-2
 //CS120(GAM100)
 //Fall, 2020
@@ -19,6 +19,7 @@ public:
 	void start_level();
 	void next_level();
 	void new_level();
+	void reset_game();
 	void push_bullets(Bullet_Type bulletType);
 	void push_enemy();
 	void move_enmey();

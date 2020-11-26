@@ -1,4 +1,4 @@
-//Daehyeon Kim, Hyeong Ahn, Sunwoo Lee
+//Dae Hyeon Kim, Hyoung Won An, Sun Woo Lee
 //Prototype-2
 //CS120(GAM100)
 //Fall, 2020
@@ -19,4 +19,4 @@ enum sounds
     RockSound, PistolSound, BarrierSound,LaserSound, NuclearSound
 };
     
-  
+ 

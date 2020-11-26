@@ -1,4 +1,4 @@
-//Daehyeon Kim, Hyeong Ahn, Sunwoo Lee
+//Dae Hyeon Kim, Hyoung Won An, Sun Woo Lee
 //Prototype-2
 //CS120(GAM100)
 //Fall, 2020
@@ -33,14 +33,15 @@ enum class Bullet_Type
 
 enum class MenuType
 {
-    User_Info,
+    Splash,
     Purchase,
     In_Game,
-    Game_Over
+    Game_Over,
+    Quit
 };
 
 
-inline MenuType MENU{ MenuType::Purchase };
+inline MenuType MENU{ MenuType::Splash };
 inline map<double, Bullet_Type> index_type_map;
 constexpr int STARTMONEY{ 500 };
 inline int MONEY{ STARTMONEY };

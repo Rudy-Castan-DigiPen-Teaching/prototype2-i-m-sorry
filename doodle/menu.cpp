@@ -1,4 +1,4 @@
-//Daehyeon Kim, Hyeong Ahn, Sunwoo Lee
+//Dae Hyeon Kim, Hyoung Won An, Sun Woo Lee
 //Prototype-2
 //CS120(GAM100)
 //Fall, 2020
@@ -125,14 +125,19 @@ void BuyScene::draw_button()
     double x_increase{ Width / 6. };
     push_settings();
     set_font_size(30);
+    set_fill_color(255);
     draw_rectangle(x, Height / 2, 200.);
     draw_text("1: Rock", x, Height / 2);
+    set_fill_color(0, 255, 0, 255);
     draw_rectangle(x += x_increase, Height / 2, 200.);
     draw_text("2: Pistol", x, Height / 2);
+    set_fill_color(0, 0, 255, 255);
     draw_rectangle(x += x_increase, Height / 2, 200.);
     draw_text("3: Barrier", x, Height / 2);
+    set_fill_color(255, 0, 0, 255);
     draw_rectangle(x += x_increase, Height / 2, 200.);
     draw_text("4: Laser", x, Height / 2);
+    set_fill_color(255, 255, 0, 255);
     draw_rectangle(x += x_increase, Height / 2, 200.);
     draw_text("5: Nuclear", x, Height / 2);
     pop_settings();
@@ -158,4 +163,21 @@ void BuyScene::reset_count()
     {
         bullet_count[i] = 0;
     }
+}
+
+void BuyScene::draw_info()
+{
+    push_settings();
+    draw_text("Gold: " + to_string(MONEY), 0, Height - 100.);
+    draw_text("Level: " + to_string(LEVEL), 0, Height - 200.);
+    set_font_size(30);
+    draw_text("Press S to Start new wave or Save ", 0, 200);
+    draw_text("Press R to Restart new game ", 0, 100);
+    draw_text("Press Q to Quit", 0, 0);
+
+    draw_text("I'm sorry", Width * 3 / 4, Height / 4);
+    draw_text("Dae Hyeon Kim", Width * 3 / 4, Height / 4 - 50);
+    draw_text("Hyoung Won An", Width * 3 / 4, Height / 4 - 100);
+    draw_text("Sun Woo Lee", Width * 3 / 4, Height / 4 - 150);
+    pop_settings();
 }

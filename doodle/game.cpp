@@ -1,4 +1,4 @@
-//Daehyeon Kim, Hyeong Ahn, Sunwoo Lee
+//Dae Hyeon Kim, Hyoung Won An, Sun Woo Lee
 //Prototype-2
 //CS120(GAM100)
 //Fall, 2020
@@ -37,6 +37,15 @@ void GameScene::new_level()
         timer++;
 }
 
+void GameScene::reset_game()
+{
+    MONEY = STARTMONEY;
+    LEVEL = 1;
+    bullets.clear();
+    enemies.clear();
+    index_type_map.clear();
+    
+}
 void GameScene::push_bullets(Bullet_Type bulletType)
 {
     if (bulletType < Bullet_Type::Rock || bulletType > Bullet_Type::Nuclear)
@@ -146,7 +155,6 @@ void GameScene::erase_enemy()
         }
     }
 }
-
 
 void GameScene::draw_bullets()
 {

@@ -1,4 +1,4 @@
-//Daehyeon Kim, Hyeong Ahn, Sunwoo Lee
+//Dae Hyeon Kim, Hyoung Won An, Sun Woo Lee
 //Prototype-2
 //CS120(GAM100)
 //Fall, 2020
@@ -26,22 +26,17 @@ namespace helper
     [[noreturn]] void error(const std::string& s) { throw std::runtime_error(s); }
 }
 
-
+void setup();
 
 int main(void) try
 {
+    setup();
     create_window("Bullet Defense by I'm sorry");
     set_frame_of_reference(FrameOfReference::RightHanded_OriginBottomLeft);
-    gamescene.art.setup();
-    ifstream in{ "assets/Bullet_Defense.txt" };
-    if (!in)
-    {
-        ofstream out{ "assets/Bullet_Defense.txt" };
-    } 
-    in>>MONEY;
-    in>>LEVEL;
-    in.close();
-    ofstream out{ "assets/Bullet_Defense.txt" };
+
+    Image splash{"assets/Copyright_information.png"};
+    ofstream out{ "Bullet_Defense.txt" };
+    int timer{ 0 };
     
     while (!is_window_closed())
     {
@@ -49,28 +44,46 @@ int main(void) try
         clear_background(120);
         switch (MENU)
         {
-            case MenuType::Purchase:
-                draw_text("Gold: " + to_string(MONEY), 0, Height - 100.);
-                draw_text("Press S to start new wave or save ", 0, 0);
-                buyscene.draw_button();
-                buyscene.draw_count();
-                break;
-            case MenuType::In_Game:
-                gamescene.new_level();
-                gamescene.draw_cards();
-                gamescene.draw_aim();
-                gamescene.draw_bullets();
-                gamescene.erase_bullet();
-                gamescene.draw_enemy();
-                gamescene.move_enmey();
-                gamescene.erase_enemy();
-                gamescene.EraseEnemieByCollision();
-                gamescene.next_level();
-                break;
-            case MenuType::Game_Over:
-                clear_background(0);
-                out.close();
-                break;
+        case MenuType::Splash:
+            push_settings();
+            clear_background(0);
+            set_frame_of_reference(FrameOfReference::RightHanded_OriginCenter);
+            set_image_mode(RectMode::Center);
+            draw_image(splash, 0, 0);
+            pop_settings();
+            if (timer > 300)
+            {
+                MENU = MenuType::Purchase;
+            }
+            timer++;
+            break;
+        case MenuType::Purchase:
+            buyscene.draw_info();
+            buyscene.draw_button();
+            buyscene.draw_count();
+            break;
+        case MenuType::In_Game:
+            gamescene.new_level();
+            gamescene.draw_cards();
+            gamescene.draw_aim();
+            gamescene.draw_bullets();
+            gamescene.erase_bullet();
+            gamescene.draw_enemy();
+            gamescene.move_enmey();
+            gamescene.erase_enemy();
+            gamescene.EraseEnemieByCollision();
+            gamescene.next_level();
+            break;
+        case MenuType::Game_Over:
+            clear_background(0);
+            draw_text("Game Over",Width/2-50,Height/2);
+            draw_text("Press R to Restart new game", 0, 100);
+            draw_text("Press Q to Quit", 0, 0);
+            
+            break;
+        case MenuType::Quit:
+            close_window();
+            break;
         }
     }
     out.close();
@@ -80,6 +93,19 @@ catch (exception& e)
 {
     cerr << "Error: " << e.what() << endl;
     return -1;
+}
+
+void setup()
+{
+    gamescene.art.setup();
+    ifstream in{ "Bullet_Defense.txt" };
+    if (!in)
+    {
+        ofstream out{ "Bullet_Defense.txt" };
+    }
+    in >> MONEY;
+    in >> LEVEL;
+    in.close();
 }
 
 void on_mouse_pressed(MouseButtons button)
@@ -99,24 +125,30 @@ void on_mouse_pressed(MouseButtons button)
 
 void on_key_pressed(KeyboardButtons button)
 {
+    ofstream out{ "Bullet_Defense.txt" };
+
     if (MENU == MenuType::Purchase)
     {
-        ofstream out{ "Bullet_Defense.txt" };
         switch (button)
         {
-        case KeyboardButtons::S: 
+        case KeyboardButtons::S:
             if (!index_type_map.empty())
             {
                 MENU = MenuType::In_Game;
                 gamescene.start_level();
                 buyscene.reset_count();
-            } else
+            }
+            else
             {
                 out << MONEY << "\n" << LEVEL;
-            }  
+            }
             break;
-        case KeyboardButtons::D:
-            MENU=MenuType::Game_Over;
+        case  KeyboardButtons::R:
+            gamescene.reset_game();
+            buyscene.reset_count();
+            break;
+        case KeyboardButtons::Q:
+            MENU = MenuType::Quit;
             break;
         case KeyboardButtons::_1:
         case KeyboardButtons::_2:
@@ -126,6 +158,27 @@ void on_key_pressed(KeyboardButtons button)
         case KeyboardButtons::M: MONEY += 10000; break;
         default: break;
         }
-        
+    }
+    else if (MENU == MenuType::In_Game)
+    {
+        if (button == KeyboardButtons::R)
+        {
+            gamescene.reset_game();
+            MENU = MenuType::Purchase;
+        }
+    }
+    else if (MENU == MenuType::Game_Over)
+    {
+        switch (button)
+        {
+        case KeyboardButtons::R:
+            gamescene.reset_game();
+            MENU = MenuType::Purchase;
+            break;
+        case KeyboardButtons::Q:
+            MENU = MenuType::Quit;
+            break;
+        default: break;
+        }
     }
 }
