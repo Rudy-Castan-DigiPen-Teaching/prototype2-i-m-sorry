@@ -6,11 +6,11 @@
 
 void GameScene::start_level()
 {
-    remaning_enemy = LEVEL * 3;
-    enemy_interver -= 10 * LEVEL;
-    if (enemy_interver < 50)
+    remaning_enemy = LEVEL * ENEMYUNITCOEFFICIENT;
+    enemy_interver -= INTERVALMINIMUM * LEVEL;
+    if (enemy_interver < INTERVALMINIMUM)
     {
-        enemy_interver = 50;
+        enemy_interver = INTERVALMINIMUM;
     }
 }
 
@@ -29,12 +29,13 @@ void GameScene::next_level()
 
 void GameScene::new_level()
 {
-        if(timer % enemy_interver == 0 && remaning_enemy != 0)
-        {
-            push_enemy();
-            remaning_enemy--;
-        }
-        timer++;
+    draw_text("Remaining enimies : " + to_string(remaning_enemy), Width / 2, Height - 100.);
+    if(timer % enemy_interver == 0 && remaning_enemy != 0)
+    {
+        push_enemy();
+        remaning_enemy--;
+    }
+    timer++;
 }
 
 void GameScene::reset_game()
@@ -57,27 +58,27 @@ void GameScene::push_bullets(Bullet_Type bulletType)
     {
     case Bullet_Type::Rock:
         bullet.set_direction();
-        bullet.set_infor(3000, 100, 75, Bullet_Type::Rock); 
+        bullet.set_infor(ROCKSPEED, ROCKWEIGHT, ROCKSIZE, Bullet_Type::Rock);
         art.PlaySound(RockSound);
         break;
     case Bullet_Type::Pistol:
         bullet.set_direction();
-        bullet.set_infor(4000, 10, 50,Bullet_Type::Pistol); 
+        bullet.set_infor(PISTOLSPEED, PISTOLWEIGHT, PISTOLSIZE,Bullet_Type::Pistol);
         art.PlaySound(PistolSound);
         break;
     case Bullet_Type::Barrier:
         bullet.set_direction_fixed(0, Height/2);
-        bullet.set_infor(10, 0, Height, Bullet_Type::Barrier);
+        bullet.set_infor(BARRIERSPEED, BARRIERWEIGHT, Height, Bullet_Type::Barrier);
         art.PlaySound(BarrierSound);
         break;
     case Bullet_Type::Laser:
         bullet.set_direction();
-        bullet.set_infor(8000, 0, 50, Bullet_Type::Laser); 
+        bullet.set_infor(LASERSPEED, LASERWEIGHT, LASERSIZE, Bullet_Type::Laser);
         art.PlaySound(LaserSound);
         break;
     case Bullet_Type::Nuclear:
         bullet.set_direction_fixed(0, Height/2);
-        bullet.set_infor(1000, 0, Height, Bullet_Type::Nuclear); 
+        bullet.set_infor(NUCLEARSPEED, NUCLEARWEIGHT, Height, Bullet_Type::Nuclear);
         art.PlaySound(NuclearSound);
         break;
     }
@@ -88,11 +89,11 @@ void GameScene::push_enemy()
 {
     Enemy enemy;
 
-    enemy.set_size(random(100., 300.));
-    enemy.set_position(Width, random(100., Height-100.));
-    enemy.set_velocity(100+random(150., 250.) * LEVEL / 10);
-    enemy.set_color({ random(0.,256.), random(0.,256.), random(0.,256.), random(100.,256.) });
-    enemy.set_health(LEVEL/5 + 1);
+    enemy.set_size(random(ENEMYSIZEMIN, ENEMYSIZEMAX    ));
+    enemy.set_position(Width, random(ENEMYPOSLIMIT, Height- ENEMYPOSLIMIT));
+    enemy.set_velocity(ENEMYSPEEDORIGIN +random(ENEMYSPEEdMIN, ENEMYSPEEDMAX) * LEVEL / ENEMYSPEEDCOEFFICIENT);
+    enemy.set_color({ random(ENEMYCOLOR), random(ENEMYCOLOR), random(ENEMYCOLOR), random(ENEMYALPHAMIN, ENEMYCOLOR) });
+    enemy.set_health(LEVEL / ENEMYHEALTHCOEFFICIENT + ENEMYHEALTHORIGIN);
     enemies.push_back(enemy);
 }
 
@@ -206,10 +207,10 @@ void GameScene::draw_aim()
     double aim_y = get_mouse_y();
     push_settings();
     set_fill_color(255, 0, 0, 255);
-    draw_line(aim_x - 50, aim_y, aim_x + 50, aim_y);
-    draw_line(aim_x, aim_y - 50, aim_x, aim_y + 50);
+    draw_line(aim_x - AIMLINESIZE, aim_y, aim_x + AIMLINESIZE, aim_y);
+    draw_line(aim_x, aim_y - AIMLINESIZE, aim_x, aim_y + AIMLINESIZE);
     no_fill();
-    draw_ellipse(aim_x, aim_y, 30);
+    draw_ellipse(aim_x, aim_y, AIMCIRCLESIZE);
     draw_line(0,Height/2,aim_x,aim_y);
     pop_settings();
 }
