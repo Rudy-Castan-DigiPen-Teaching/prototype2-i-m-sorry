@@ -17,9 +17,18 @@ using namespace std;
 using namespace doodle;
 
 namespace helper {
-    extern double getDegree(double x, double y);
-    extern double getDistance(Pos pos1, Pos pos2);
-    extern void error(const std::string& s);
+    inline double getDegree(double x, double y)
+    {
+        return atan2(x, y);
+    }
+
+    inline double getDistance(Pos pos1, Pos pos2)
+    {
+        double disX = pow(pos1.x - pos2.x, 2);
+        double disY = pow(pos1.y - pos2.y, 2);
+        return sqrt(disX + disY);
+    }
+    [[noreturn]] inline void error(const std::string& s) { throw std::runtime_error(s); }
 }
 
 enum class Bullet_Type
