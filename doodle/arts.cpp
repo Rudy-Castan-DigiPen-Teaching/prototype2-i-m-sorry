@@ -36,4 +36,5 @@ void arts::setup()
     LoadSound("assets/Barrier.wav");
     LoadSound("assets/Laser.wav");
     LoadSound("assets/Nuclear.ogg");
+    LoadSound("assets/Not_enough.wav");
 }

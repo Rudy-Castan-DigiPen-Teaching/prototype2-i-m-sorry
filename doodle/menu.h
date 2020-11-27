@@ -3,6 +3,7 @@
 //CS120(GAM100)
 //Fall, 2020
 #pragma once
+#include "arts.h"
 #include "main_header.h"
 
 

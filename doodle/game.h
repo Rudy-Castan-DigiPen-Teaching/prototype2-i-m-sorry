@@ -15,7 +15,6 @@ private:
 	int timer = 0;
 	int enemy_interver{ 400 };
 public:
-	arts art;
 	void start_level();
 	void next_level();
 	void new_level();

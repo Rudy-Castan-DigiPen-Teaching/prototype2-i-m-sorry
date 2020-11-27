@@ -97,7 +97,7 @@ catch (exception& e)
 
 void setup()
 {
-    gamescene.art.setup();
+    art.setup();
     ifstream in{ "assets/Bullet_Defense.txt" };
     if (!in)
     {

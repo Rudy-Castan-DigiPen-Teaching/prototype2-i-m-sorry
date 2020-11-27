@@ -16,7 +16,9 @@ public:
 
 enum sounds 
 {
-    RockSound, PistolSound, BarrierSound,LaserSound, NuclearSound
+    RockSound, PistolSound, BarrierSound,LaserSound, NuclearSound, Not_enough
 };
+
+inline arts art;
     
  
