@@ -8,8 +8,6 @@
 inline BuyScene buyscene;
 inline GameScene gamescene;
 
-
-
 namespace helper
 {
     double getDegree(double x, double y)
@@ -125,7 +123,7 @@ void on_mouse_pressed(MouseButtons button)
 
 void on_key_pressed(KeyboardButtons button)
 {
-    ofstream out{ "Bullet_Defense.txt" };
+    ofstream out{ "assets/Bullet_Defense.txt" };
 
     if (MENU == MenuType::Purchase)
     {

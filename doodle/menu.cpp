@@ -6,11 +6,17 @@
 
 void BuyScene::buyBullet(KeyboardButtons button)
 {
+    constexpr int BULLET_1{ 100 };
+    constexpr int BULLET_2{ 200 };
+    constexpr int BULLET_3{ 500 };
+    constexpr int BULLET_4{ 500 };
+    constexpr int BULLET_5{ 2000 };
+
     if (button == KeyboardButtons::_1)
     {
-        if (MONEY - 100 >= 0)
+        if (MONEY - BULLET_1 >= 0)
         {
-            MONEY -= 100;
+            MONEY -= BULLET_1;
             while (true)
             {
                 double index = random(0., 100.);
@@ -30,9 +36,9 @@ void BuyScene::buyBullet(KeyboardButtons button)
     }
     else if (button == KeyboardButtons::_2)
     {
-        if (MONEY - 200 >= 0)
+        if (MONEY - BULLET_2 >= 0)
         {
-            MONEY -= 200;
+            MONEY -= BULLET_2;
             while (true)
             {
                 double index = random(0., 100.);
@@ -52,9 +58,9 @@ void BuyScene::buyBullet(KeyboardButtons button)
     }
     else if (button == KeyboardButtons::_3)
     {
-        if (MONEY - 250 >= 0)
+        if (MONEY - BULLET_3 >= 0)
         {
-            MONEY -= 250;
+            MONEY -= BULLET_3;
             while (true)
             {
                 double index = random(0., 100.);
@@ -74,9 +80,9 @@ void BuyScene::buyBullet(KeyboardButtons button)
     }
     else if (button == KeyboardButtons::_4)
     {
-        if (MONEY - 500 >= 0)
+        if (MONEY - BULLET_4 >= 0)
         {
-            MONEY -= 500;
+            MONEY -= BULLET_4;
             while (true)
             {
                 double index = random(0., 100.);
@@ -96,9 +102,9 @@ void BuyScene::buyBullet(KeyboardButtons button)
     }
     else if (button == KeyboardButtons::_5)
     {
-        if (MONEY - 1000 >= 0)
+        if (MONEY - BULLET_5 >= 0)
         {
-            MONEY -= 1000;
+            MONEY -= BULLET_5;
             while (true)
             {
                 double index = random(0., 100.);
@@ -123,23 +129,26 @@ void BuyScene::draw_button()
 {
     double x{ Width / 10. };
     double x_increase{ Width / 6. };
+    double y_pos{ Height / 2. };
+    constexpr double RECT_SIZE{ 200. };
+
     push_settings();
     set_font_size(30);
-    set_fill_color(255);
-    draw_rectangle(x, Height / 2, 200.);
-    draw_text("1: Rock", x, Height / 2);
-    set_fill_color(0, 255, 0, 255);
-    draw_rectangle(x += x_increase, Height / 2, 200.);
-    draw_text("2: Pistol", x, Height / 2);
-    set_fill_color(0, 0, 255, 255);
-    draw_rectangle(x += x_increase, Height / 2, 200.);
-    draw_text("3: Barrier", x, Height / 2);
-    set_fill_color(255, 0, 0, 255);
-    draw_rectangle(x += x_increase, Height / 2, 200.);
-    draw_text("4: Laser", x, Height / 2);
-    set_fill_color(255, 255, 0, 255);
-    draw_rectangle(x += x_increase, Height / 2, 200.);
-    draw_text("5: Nuclear", x, Height / 2);
+    set_fill_color(BULLET_1_COLOR);
+    draw_rectangle(x, y_pos, RECT_SIZE);
+    draw_text("1: Rock", x, y_pos);
+    set_fill_color(BULLET_2_COLOR);
+    draw_rectangle(x += x_increase, y_pos, RECT_SIZE);
+    draw_text("2: Pistol", x, y_pos);
+    set_fill_color(BULLET_3_COLOR);
+    draw_rectangle(x += x_increase, y_pos, RECT_SIZE);
+    draw_text("3: Barrier", x, y_pos);
+    set_fill_color(BULLET_4_COLOR);
+    draw_rectangle(x += x_increase, y_pos, RECT_SIZE);
+    draw_text("4: Laser", x, y_pos);
+    set_fill_color(BULLET_5_COLOR);
+    draw_rectangle(x += x_increase, y_pos, RECT_SIZE);
+    draw_text("5: Nuclear", x, y_pos);
     pop_settings();
 }
 
@@ -147,13 +156,14 @@ void BuyScene::draw_count()
 {
     double x{ Width / 10. };
     double x_increase{ Width / 6. };
+    double y_pos{ Height / 2 - 100. };
 
     push_settings();
-    draw_text(to_string(bullet_count[0]), x, Height/2 -100.);
-    draw_text(to_string(bullet_count[1]), x += x_increase, Height / 2 - 100.);
-    draw_text(to_string(bullet_count[2]), x += x_increase, Height / 2 - 100.);
-    draw_text(to_string(bullet_count[3]), x += x_increase, Height / 2 - 100.);
-    draw_text(to_string(bullet_count[4]), x += x_increase, Height / 2 - 100.);
+    draw_text(to_string(bullet_count[0]), x, y_pos);
+    draw_text(to_string(bullet_count[1]), x += x_increase, y_pos);
+    draw_text(to_string(bullet_count[2]), x += x_increase, y_pos);
+    draw_text(to_string(bullet_count[3]), x += x_increase, y_pos);
+    draw_text(to_string(bullet_count[4]), x += x_increase, y_pos);
     pop_settings();
 }
 
@@ -167,17 +177,24 @@ void BuyScene::reset_count()
 
 void BuyScene::draw_info()
 {
+    double x_pos{ Width * 3. / 4. };
+    double y_pos{ Height * 1. };
+    double y_increase{100.};
+
     push_settings();
-    draw_text("Gold: " + to_string(MONEY), 0, Height - 100.);
-    draw_text("Level: " + to_string(LEVEL), 0, Height - 200.);
+    draw_text("Gold: " + to_string(MONEY), 0, y_pos-= y_increase);
+    draw_text("Level: " + to_string(LEVEL), 0, y_pos-= y_increase);
     set_font_size(30);
-    draw_text("Press S to Start new wave or Save ", 0, 200);
-    draw_text("Press R to Restart new game ", 0, 100);
+    draw_text("Press S to Start new wave or Save ", 0, y_increase *2);
+    draw_text("Press R to Restart new game ", 0, y_increase);
     draw_text("Press Q to Quit", 0, 0);
 
-    draw_text("I'm sorry", Width * 3 / 4, Height / 4);
-    draw_text("Dae Hyeon Kim", Width * 3 / 4, Height / 4 - 50);
-    draw_text("Hyoung Won An", Width * 3 / 4, Height / 4 - 100);
-    draw_text("Sun Woo Lee", Width * 3 / 4, Height / 4 - 150);
+    y_pos= (Height / 4.);
+    y_increase = (50.);
+
+    draw_text("I'm sorry", x_pos, y_pos);
+    draw_text("Dae Hyeon Kim", x_pos, y_pos -= y_increase);
+    draw_text("Hyoung Won An", x_pos, y_pos -= y_increase);
+    draw_text("Sun Woo Lee", x_pos, y_pos -= y_increase);
     pop_settings();
 }

@@ -46,5 +46,10 @@ inline map<double, Bullet_Type> index_type_map;
 constexpr int STARTMONEY{ 500 };
 inline int MONEY{ STARTMONEY };
 inline int LEVEL{1};
+constexpr Color BULLET_1_COLOR{255};
+constexpr Color BULLET_2_COLOR{ 0, 255, 0 };
+constexpr Color BULLET_3_COLOR{ 0, 0, 255 };
+constexpr Color BULLET_4_COLOR{ 255, 0, 0 };
+constexpr Color BULLET_5_COLOR{ 255, 255, 0 };
 
 
