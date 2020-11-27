@@ -55,7 +55,7 @@ void GameScene::push_bullets(Bullet_Type bulletType)
     Bullet bullet;
     switch (bulletType)
     {
-    case Bullet_Type::Rock: 
+    case Bullet_Type::Rock:
         bullet.set_direction();
         bullet.set_infor(3000, 100, 75, Bullet_Type::Rock); 
         art.PlaySound(RockSound);
@@ -65,7 +65,7 @@ void GameScene::push_bullets(Bullet_Type bulletType)
         bullet.set_infor(4000, 10, 50,Bullet_Type::Pistol); 
         art.PlaySound(PistolSound);
         break;
-    case Bullet_Type::Barrier: 
+    case Bullet_Type::Barrier:
         bullet.set_direction_fixed(0, Height/2);
         bullet.set_infor(10, 0, Height, Bullet_Type::Barrier);
         art.PlaySound(BarrierSound);
@@ -75,7 +75,7 @@ void GameScene::push_bullets(Bullet_Type bulletType)
         bullet.set_infor(8000, 0, 50, Bullet_Type::Laser); 
         art.PlaySound(LaserSound);
         break;
-    case Bullet_Type::Nuclear: 
+    case Bullet_Type::Nuclear:
         bullet.set_direction_fixed(0, Height/2);
         bullet.set_infor(1000, 0, Height, Bullet_Type::Nuclear); 
         art.PlaySound(NuclearSound);
