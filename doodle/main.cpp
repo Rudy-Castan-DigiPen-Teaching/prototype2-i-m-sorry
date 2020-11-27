@@ -8,35 +8,17 @@
 inline BuyScene buyscene;
 inline GameScene gamescene;
 
-namespace helper
-{
-    double getDegree(double x, double y)
-    {
-        return atan2(x, y);
-    }
-
-    double getDistance(Pos pos1, Pos pos2)
-    {
-        double disX = pow(pos1.x - pos2.x, 2);
-        double disY = pow(pos1.y - pos2.y, 2);
-        return sqrt(disX + disY);
-    }
-    [[noreturn]] void error(const std::string& s) { throw std::runtime_error(s); }
-}
-
-void setup();
-
 int main(void) try
 {
     setup();
     create_window("Bullet Defense by I'm sorry");
     set_frame_of_reference(FrameOfReference::RightHanded_OriginBottomLeft);
-
-    Image splash{"assets/Copyright_information.png"};
+    Image spl{"assets/Copyright_information.png"};
     ofstream out{"assets/Bullet_Defense.txt" };
     int timer{ 0 };
     constexpr Color GRAY{ 120 };
     constexpr int SPLASH_TIME{ 300 };
+    constexpr int FONTSIZE{ 200 };
     const double GAMEOVER_X{Width / 25.};
     const double GAMEOVER_Y1{Height / 2.};
     const double GAMEOVER_Y2{Height / 10.};   
@@ -51,13 +33,13 @@ int main(void) try
             clear_background(BLACK);
             set_frame_of_reference(FrameOfReference::RightHanded_OriginCenter);
             set_image_mode(RectMode::Center);
-            draw_image(splash, 0, 0);
+            draw_image(spl, 0, 0);
             pop_settings();
             if (timer > SPLASH_TIME)
             {
                 MENU = MenuType::Purchase;
             }
-            timer++;
+            timer = get_splash_time(timer);
             break;
         case MenuType::Purchase:
             buyscene.draw_info();
@@ -79,7 +61,7 @@ int main(void) try
         case MenuType::Game_Over:
             clear_background(BLACK);
             push_settings();
-            set_font_size(200);
+            set_font_size(FONTSIZE);
             draw_text("Game Over", GAMEOVER_X, GAMEOVER_Y1);
             pop_settings();
             draw_text("Press R to Restart new game", GAMEOVER_X, GAMEOVER_Y2);
@@ -97,6 +79,12 @@ catch (exception& e)
 {
     cerr << "Error: " << e.what() << endl;
     return -1;
+}
+
+constexpr int get_splash_time(int time)
+{          
+    time++;
+    return time;
 }
 
 void setup()

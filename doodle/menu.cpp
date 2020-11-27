@@ -129,9 +129,9 @@ void BuyScene::buyBullet(KeyboardButtons button)
 void BuyScene::draw_button()
 {
     double x{ Width / 10. };
-    double x_increase{ Width / 6. };
-    double y_rect_pos{ Height * .5 };
-    double y_pos{ Height * .6 };
+    const double x_increase{ Width / 6. };
+    const double y_rect_pos{ Height * .5 };
+    const double y_pos{ Height * .6 };
     constexpr double RECT_SIZE{ 200. };
 
     push_settings();
@@ -157,8 +157,8 @@ void BuyScene::draw_button()
 void BuyScene::draw_count()
 {
     double x{ Width / 10. };
-    double x_increase{ Width / 6. };
-    double y_pos{ Height * .4 };
+    const double x_increase{ Width / 6. };
+    const double y_pos{ Height * .4 };
 
     push_settings();
     draw_text(to_string(bullet_count[0]), x, y_pos);
@@ -179,7 +179,7 @@ void BuyScene::reset_count()
 
 void BuyScene::draw_info()
 {
-    double x_pos{ Width * 3. / 4. };
+    const double x_pos{ Width * 3. / 4. };
     double y_pos{ Height * 1. };
     double y_increase{100.};
 
