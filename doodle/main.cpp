@@ -32,7 +32,7 @@ int main(void) try
     create_window("Bullet Defense by I'm sorry");
     set_frame_of_reference(FrameOfReference::RightHanded_OriginBottomLeft);
 
-    Image splash{"Copyright_information.png"};
+    Image splash{"assets/Copyright_information.png"};
     ofstream out{"assets/Bullet_Defense.txt" };
     int timer{ 0 };
     
