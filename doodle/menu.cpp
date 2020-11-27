@@ -2,6 +2,7 @@
 //Prototype-2
 //CS120(GAM100)
 //Fall, 2020
+
 #include "menu.h"
 
 void BuyScene::buyBullet(KeyboardButtons button)
@@ -31,7 +32,7 @@ void BuyScene::buyBullet(KeyboardButtons button)
         }
         else
         {
-            //not enough minerals 음성출력
+            art.PlaySound(Not_enough);
         }
     }
     else if (button == KeyboardButtons::_2)
@@ -53,7 +54,7 @@ void BuyScene::buyBullet(KeyboardButtons button)
         }
         else
         {
-            // not enough minerals 음성출력
+            art.PlaySound(Not_enough);
         }
     }
     else if (button == KeyboardButtons::_3)
@@ -75,7 +76,7 @@ void BuyScene::buyBullet(KeyboardButtons button)
         }
         else
         {
-            // not enough minerals 음성출력
+            art.PlaySound(Not_enough);
         }
     }
     else if (button == KeyboardButtons::_4)
@@ -97,7 +98,7 @@ void BuyScene::buyBullet(KeyboardButtons button)
         }
         else
         {
-            // not enough minerals 음성출력
+            art.PlaySound(Not_enough);
         }
     }
     else if (button == KeyboardButtons::_5)
@@ -119,7 +120,7 @@ void BuyScene::buyBullet(KeyboardButtons button)
         }
         else
         {
-            // not enough minerals 음성출력
+            art.PlaySound(Not_enough);
         }
     }
 

@@ -32,8 +32,8 @@ int main(void) try
     create_window("Bullet Defense by I'm sorry");
     set_frame_of_reference(FrameOfReference::RightHanded_OriginBottomLeft);
 
-    Image splash{"assets/Copyright_information.png"};
-    ofstream out{ "assets/Bullet_Defense.txt" };
+    Image splash{"Copyright_information.png"};
+    ofstream out{"assets/Bullet_Defense.txt" };
     int timer{ 0 };
     
     while (!is_window_closed())
@@ -95,7 +95,7 @@ catch (exception& e)
 
 void setup()
 {
-    gamescene.art.setup();
+    art.setup();
     ifstream in{ "assets/Bullet_Defense.txt" };
     if (!in)
     {
@@ -124,7 +124,7 @@ void on_mouse_pressed(MouseButtons button)
 void on_key_pressed(KeyboardButtons button)
 {
     ofstream out{ "assets/Bullet_Defense.txt" };
-
+    
     if (MENU == MenuType::Purchase)
     {
         switch (button)
