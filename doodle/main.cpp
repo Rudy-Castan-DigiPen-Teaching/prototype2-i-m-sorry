@@ -35,7 +35,7 @@ int main(void) try
     set_frame_of_reference(FrameOfReference::RightHanded_OriginBottomLeft);
 
     Image splash{"assets/Copyright_information.png"};
-    ofstream out{ "Bullet_Defense.txt" };
+    ofstream out{ "assets/Bullet_Defense.txt" };
     int timer{ 0 };
     
     while (!is_window_closed())
@@ -98,10 +98,10 @@ catch (exception& e)
 void setup()
 {
     gamescene.art.setup();
-    ifstream in{ "Bullet_Defense.txt" };
+    ifstream in{ "assets/Bullet_Defense.txt" };
     if (!in)
     {
-        ofstream out{ "Bullet_Defense.txt" };
+        ofstream out{ "assets/Bullet_Defense.txt" };
     }
     in >> MONEY;
     in >> LEVEL;
