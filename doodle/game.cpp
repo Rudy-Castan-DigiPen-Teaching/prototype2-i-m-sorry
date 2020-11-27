@@ -6,8 +6,11 @@
 
 void GameScene::start_level()
 {
-    remaning_enemy = LEVEL * ENEMYUNITCOEFFICIENT;
-    enemy_interver -= INTERVALMINIMUM * LEVEL;
+    constexpr int INTERVALMINIMUM{ 50 };
+    constexpr int ENEMYUNITCOEFFICIENT{ 3 };
+    constexpr int ENEMYINTERVALCOEFFICIENT{ 10 };
+    remaining_enemy = LEVEL * ENEMYUNITCOEFFICIENT;
+    enemy_interver -= ENEMYINTERVALCOEFFICIENT * LEVEL;
     if (enemy_interver < INTERVALMINIMUM)
     {
         enemy_interver = INTERVALMINIMUM;
@@ -16,7 +19,7 @@ void GameScene::start_level()
 
 void GameScene::next_level()
 {
-    if (enemies.empty() && MENU == MenuType::In_Game && remaning_enemy == 0)
+    if (enemies.empty() && MENU == MenuType::In_Game && remaining_enemy == 0)
     {
         LEVEL++;
         MONEY += LEVEL * STARTMONEY;
@@ -29,11 +32,10 @@ void GameScene::next_level()
 
 void GameScene::new_level()
 {
-    draw_text("Remaining enimies : " + to_string(remaning_enemy), Width / 2, Height - 100.);
-    if(timer % enemy_interver == 0 && remaning_enemy != 0)
+    if(timer % enemy_interver == 0 && remaining_enemy != 0)
     {
         push_enemy();
-        remaning_enemy--;
+        remaining_enemy--;
     }
     timer++;
 }
@@ -49,6 +51,21 @@ void GameScene::reset_game()
 }
 void GameScene::push_bullets(Bullet_Type bulletType)
 {
+    constexpr int ROCKSPEED{ 3000 };
+    constexpr int PISTOLSPEED{ 4000 };
+    constexpr int BARRIERSPEED{ 10 };
+    constexpr int LASERSPEED{ 8000 };
+    constexpr int NUCLEARSPEED{ 1000 };
+    
+    constexpr int ROCKWEIGHT{ 100 };
+    constexpr int PISTOLWEIGHT{ 10 };
+    constexpr int BARRIERWEIGHT{ 0 };
+    constexpr int LASERWEIGHT{ 0 };
+    constexpr int NUCLEARWEIGHT{ 0 };
+    
+    constexpr int ROCKSIZE{ 75 };
+    constexpr int PISTOLSIZE{ 50 };
+    constexpr int LASERSIZE{ 50 };
     if (bulletType < Bullet_Type::Rock || bulletType > Bullet_Type::Nuclear)
     {
         helper::error("failed to match bullet type: " + to_string(static_cast<int>(bulletType)));
@@ -67,7 +84,7 @@ void GameScene::push_bullets(Bullet_Type bulletType)
         art.PlaySound(PistolSound);
         break;
     case Bullet_Type::Barrier:
-        bullet.set_direction_fixed(0, Height/2);
+        bullet.set_direction_fixed(Width, Height/2);
         bullet.set_infor(BARRIERSPEED, BARRIERWEIGHT, Height, Bullet_Type::Barrier);
         art.PlaySound(BarrierSound);
         break;
@@ -77,7 +94,7 @@ void GameScene::push_bullets(Bullet_Type bulletType)
         art.PlaySound(LaserSound);
         break;
     case Bullet_Type::Nuclear:
-        bullet.set_direction_fixed(0, Height/2);
+        bullet.set_direction_fixed(Width, Height/2);
         bullet.set_infor(NUCLEARSPEED, NUCLEARWEIGHT, Height, Bullet_Type::Nuclear);
         art.PlaySound(NuclearSound);
         break;
@@ -88,10 +105,20 @@ void GameScene::push_bullets(Bullet_Type bulletType)
 void GameScene::push_enemy()
 {
     Enemy enemy;
-
+    constexpr double ENEMYSIZEMAX{ 300. };
+    constexpr double ENEMYPOSLIMIT{ 100. };
+    constexpr int ENEMYHEALTHCOEFFICIENT{ 5 };
+    constexpr int ENEMYHEALTHORIGIN{ 1 };
+    constexpr int ENEMYSPEEDCOEFFICIENT{ 10 };
+    constexpr double ENEMYSPEEDORIGIN{ 100. };
+    constexpr double ENEMYSPEEDMIN{ 150. };
+    constexpr double ENEMYSPEEDMAX{ 250. };
+    constexpr double ENEMYSIZEMIN{ 100. };
+    constexpr double ENEMYCOLOR{ 255. };
+    constexpr double ENEMYALPHAMIN{ 100. };
     enemy.set_size(random(ENEMYSIZEMIN, ENEMYSIZEMAX    ));
     enemy.set_position(Width, random(ENEMYPOSLIMIT, Height- ENEMYPOSLIMIT));
-    enemy.set_velocity(ENEMYSPEEDORIGIN +random(ENEMYSPEEdMIN, ENEMYSPEEDMAX) * LEVEL / ENEMYSPEEDCOEFFICIENT);
+    enemy.set_velocity(ENEMYSPEEDORIGIN +random(ENEMYSPEEDMIN, ENEMYSPEEDMAX) * LEVEL / ENEMYSPEEDCOEFFICIENT);
     enemy.set_color({ random(ENEMYCOLOR), random(ENEMYCOLOR), random(ENEMYCOLOR), random(ENEMYALPHAMIN, ENEMYCOLOR) });
     enemy.set_health(LEVEL / ENEMYHEALTHCOEFFICIENT + ENEMYHEALTHORIGIN);
     enemies.push_back(enemy);
@@ -105,8 +132,9 @@ void GameScene::move_enmey()
     }
 }
 
-void GameScene::erase_bullet()
+void GameScene::bullet_limit()
 {
+    constexpr int BARRIER_TIMER{3};
     for (int i = 0; i < bullets.size(); i++)
     {
         switch (bullets[i].get_bullet_type())
@@ -114,45 +142,49 @@ void GameScene::erase_bullet()
         case Bullet_Type::Rock:
             if (helper::getDistance(bullets[i].get_position(), bullets[i].get_start_position()) >= Width)
             {
-                bullets.erase(bullets.begin() + i);
+                over_limitB.push_back(i);
             }
             break;
         case Bullet_Type::Pistol:
             if (helper::getDistance(bullets[i].get_position(), bullets[i].get_start_position()) >= Width * 0.7)
             {
-                bullets.erase(bullets.begin() + i);
+                over_limitB.push_back(i);
             }
             break;
         case Bullet_Type::Barrier:
-            if (helper::getDistance(bullets[i].get_position(), bullets[i].get_start_position()) >= 3)
+            if (helper::getDistance(bullets[i].get_position(), bullets[i].get_start_position()) >= BARRIER_TIMER)   
             {
-                bullets.erase(bullets.begin() + i);
+                over_limitB.push_back(i);
             }
             break;
         case Bullet_Type::Laser:
             if (helper::getDistance(bullets[i].get_position(), bullets[i].get_start_position()) >= Width)
             {
-                bullets.erase(bullets.begin() + i);
+                over_limitB.push_back(i);
             }
             break;
         case Bullet_Type::Nuclear:
             if (helper::getDistance(bullets[i].get_position(), bullets[i].get_start_position()) >= Width)
             {
-                bullets.erase(bullets.begin() + i);
+                over_limitB.push_back(i);
             }
             break;
         }
     }
+    for (int i = 0; i < over_limitB.size(); i++)
+    {
+        bullets.erase(bullets.begin() + over_limitB[i]);
+    }
+    over_limitB.clear();
 }
 
-void GameScene::erase_enemy()
+void GameScene::game_over()
 {
     for (int i = 0; i < enemies.size(); i++)
-    {   
-        if(enemies[i].get_position().x < 0)
+    {
+        if (enemies[i].get_position().x < enemies[i].get_size()*.5)
         {
-            enemies.erase(enemies.begin() + i);
-            MENU=MenuType::Game_Over;
+            MENU = MenuType::Game_Over;
         }
     }
 }
@@ -168,32 +200,32 @@ void GameScene::draw_bullets()
         {
             case Bullet_Type::Rock: 
                 push_settings();
-                set_fill_color(255);
+                set_fill_color(BULLET_1_COLOR);
                 draw_ellipse(i.get_position().x, i.get_position().y, i.get_size());
                 pop_settings();
                 break;
             case Bullet_Type::Pistol: 
                 push_settings();
-                set_fill_color(0, 255, 0, 255);
+                set_fill_color(BULLET_2_COLOR);
                 draw_ellipse(i.get_position().x, i.get_position().y, i.get_size());
                 pop_settings();
                 break;
             case Bullet_Type::Barrier: 
                 push_settings();
-                set_fill_color(0, 0, 255, 255);
+                set_fill_color(BULLET_3_COLOR);
                 draw_ellipse(i.get_position().x, i.get_position().y, i.get_size());
                 pop_settings();
                 break;
             case Bullet_Type::Laser: 
                 push_settings();
-                set_fill_color(255, 0, 0, 255);
+                set_fill_color(BULLET_4_COLOR);
                 draw_ellipse(i.get_position().x, i.get_position().y, i.get_size());
                 pop_settings();
                 
                 break;
             case Bullet_Type::Nuclear: 
                 push_settings();
-                set_fill_color(255, 255, 0, 255);
+                set_fill_color(BULLET_5_COLOR);
                 draw_ellipse(i.get_position().x, i.get_position().y, i.get_size());
                 pop_settings();
                 break;
@@ -203,15 +235,19 @@ void GameScene::draw_bullets()
 }
 void GameScene::draw_aim()
 {
+    constexpr double AIMLINESIZE{ 50. };
+    constexpr double AIMCIRCLESIZE{ 30. };
     double aim_x = get_mouse_x();
     double aim_y = get_mouse_y();
+    double line_y= (Height / 2.) ;
     push_settings();
-    set_fill_color(255, 0, 0, 255);
+    set_outline_color(BULLET_4_COLOR);
     draw_line(aim_x - AIMLINESIZE, aim_y, aim_x + AIMLINESIZE, aim_y);
     draw_line(aim_x, aim_y - AIMLINESIZE, aim_x, aim_y + AIMLINESIZE);
     no_fill();
     draw_ellipse(aim_x, aim_y, AIMCIRCLESIZE);
-    draw_line(0,Height/2,aim_x,aim_y);
+    set_outline_color(BLACK);
+    draw_line(0, line_y,aim_x,aim_y);
     pop_settings();
 }
 
@@ -219,28 +255,32 @@ void GameScene::draw_cards(void)
 {
     double x{ Width / 10000. };
     double x_increase{ Width / 30. };
+    constexpr double ELLIPSE_SIZE{ 50. };
+    constexpr double ELLIPSE_Y_POS{ 25. };
     push_settings();
+    set_font_size(30);
+    draw_text("Remaining enimies : " + to_string(remaining_enemy), Width / 2, Height *.9);
     for (auto p : index_type_map)
     {
         switch (p.second)
         {
         case Bullet_Type::Rock:
-            set_fill_color(255);
+            set_fill_color(BULLET_1_COLOR);
             break;
         case Bullet_Type::Pistol:
-           set_fill_color(0, 255, 0, 255);
+           set_fill_color(BULLET_2_COLOR);
             break;
         case Bullet_Type::Barrier:
-            set_fill_color(0, 0, 255, 255);
+            set_fill_color(BULLET_3_COLOR);
             break;
         case Bullet_Type::Laser:
-            set_fill_color(255, 0, 0, 255);
+            set_fill_color(BULLET_4_COLOR);
             break;
         case Bullet_Type::Nuclear:
-            set_fill_color(255, 255, 0, 255);
+            set_fill_color(BULLET_5_COLOR);
             break;
         }
-        draw_ellipse(x+=x_increase,25,50);
+        draw_ellipse(x+=x_increase, ELLIPSE_Y_POS, ELLIPSE_SIZE);
     }
     pop_settings();
 }
@@ -254,17 +294,15 @@ void GameScene::draw_enemy()
         set_fill_color(i.get_color());
         draw_ellipse(i.get_position().x, i.get_position().y, i.get_size());
         push_settings();
-        set_outline_color(0);
+        set_outline_color(BLACK);
         draw_text(to_string(i.get_health()),i.get_position().x, i.get_position().y);
         pop_settings();
     }
     pop_settings();
 }
 
-void GameScene::EraseEnemieByCollision()
+void GameScene::EraseByCollision()
 { 
-    vector<int> eraseB;
-    vector<int> eraseE;
     for(auto e = 0; e < enemies.size(); e++)
     {
         for(auto b = 0; b < bullets.size(); b++)
@@ -281,7 +319,12 @@ void GameScene::EraseEnemieByCollision()
                 }
                 else if(enemies[e].get_health() == 1)
                 {
-                    eraseE.push_back(e);
+                    vector<int>::iterator iter;
+                    iter = find(eraseE.begin(), eraseE.end(), e);
+                    if(iter == eraseE.end())
+                    {
+                        eraseE.push_back(e);
+                    }
                 }
             }
         }
@@ -294,7 +337,6 @@ void GameScene::EraseEnemieByCollision()
     {
         enemies.erase(enemies.begin() + eraseE[i]);
     }
+    eraseB.clear();
+    eraseE.clear();
 }
-
-
-

@@ -35,21 +35,25 @@ int main(void) try
     Image splash{"assets/Copyright_information.png"};
     ofstream out{"assets/Bullet_Defense.txt" };
     int timer{ 0 };
-    
+    constexpr Color GRAY{ 120 };
+    constexpr int SPLASH_TIME{ 300 };
+    const double GAMEOVER_X{Width / 25.};
+    const double GAMEOVER_Y1{Height / 2.};
+    const double GAMEOVER_Y2{Height / 10.};   
     while (!is_window_closed())
     {
         update_window();
-        clear_background(120);
+        clear_background(GRAY);
         switch (MENU)
         {
         case MenuType::Splash:
             push_settings();
-            clear_background(0);
+            clear_background(BLACK);
             set_frame_of_reference(FrameOfReference::RightHanded_OriginCenter);
             set_image_mode(RectMode::Center);
             draw_image(splash, 0, 0);
             pop_settings();
-            if (timer > 300)
+            if (timer > SPLASH_TIME)
             {
                 MENU = MenuType::Purchase;
             }
@@ -65,19 +69,21 @@ int main(void) try
             gamescene.draw_cards();
             gamescene.draw_aim();
             gamescene.draw_bullets();
-            gamescene.erase_bullet();
             gamescene.draw_enemy();
             gamescene.move_enmey();
-            gamescene.erase_enemy();
-            gamescene.EraseEnemieByCollision();
+            gamescene.bullet_limit();
+            gamescene.EraseByCollision();
             gamescene.next_level();
+            gamescene.game_over();
             break;
         case MenuType::Game_Over:
-            clear_background(0);
-            draw_text("Game Over",Width/2-50,Height/2);
-            draw_text("Press R to Restart new game", 0, 100);
-            draw_text("Press Q to Quit", 0, 0);
-            
+            clear_background(BLACK);
+            push_settings();
+            set_font_size(200);
+            draw_text("Game Over", GAMEOVER_X, GAMEOVER_Y1);
+            pop_settings();
+            draw_text("Press R to Restart new game", GAMEOVER_X, GAMEOVER_Y2);
+            draw_text("Press Q to Quit", GAMEOVER_X, 0);
             break;
         case MenuType::Quit:
             close_window();
@@ -123,8 +129,8 @@ void on_mouse_pressed(MouseButtons button)
 
 void on_key_pressed(KeyboardButtons button)
 {
+    constexpr int SHOW_ME_THE_MONEY{ 10000 };
     ofstream out{ "assets/Bullet_Defense.txt" };
-    
     if (MENU == MenuType::Purchase)
     {
         switch (button)
@@ -153,7 +159,7 @@ void on_key_pressed(KeyboardButtons button)
         case KeyboardButtons::_3:
         case KeyboardButtons::_4:
         case KeyboardButtons::_5: buyscene.buyBullet(button); break;
-        case KeyboardButtons::M: MONEY += 10000; break;
+        case KeyboardButtons::M: MONEY += SHOW_ME_THE_MONEY; break;
         default: break;
         }
     }

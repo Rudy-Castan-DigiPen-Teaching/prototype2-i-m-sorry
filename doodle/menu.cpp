@@ -130,26 +130,27 @@ void BuyScene::draw_button()
 {
     double x{ Width / 10. };
     double x_increase{ Width / 6. };
-    double y_pos{ Height / 2. };
+    double y_rect_pos{ Height * .5 };
+    double y_pos{ Height * .6 };
     constexpr double RECT_SIZE{ 200. };
 
     push_settings();
     set_font_size(30);
     set_fill_color(BULLET_1_COLOR);
-    draw_rectangle(x, y_pos, RECT_SIZE);
-    draw_text("1: Rock", x, y_pos);
+    draw_rectangle(x, y_rect_pos, RECT_SIZE);
+    draw_text("1: Rock\n100", x, y_pos);
     set_fill_color(BULLET_2_COLOR);
-    draw_rectangle(x += x_increase, y_pos, RECT_SIZE);
-    draw_text("2: Pistol", x, y_pos);
+    draw_rectangle(x += x_increase, y_rect_pos, RECT_SIZE);
+    draw_text("2: Pistol\n200", x, y_pos);
     set_fill_color(BULLET_3_COLOR);
-    draw_rectangle(x += x_increase, y_pos, RECT_SIZE);
-    draw_text("3: Barrier", x, y_pos);
+    draw_rectangle(x += x_increase, y_rect_pos, RECT_SIZE);
+    draw_text("3: Barrier\n500", x, y_pos);
     set_fill_color(BULLET_4_COLOR);
-    draw_rectangle(x += x_increase, y_pos, RECT_SIZE);
-    draw_text("4: Laser", x, y_pos);
+    draw_rectangle(x += x_increase, y_rect_pos, RECT_SIZE);
+    draw_text("4: Laser\n500", x, y_pos);
     set_fill_color(BULLET_5_COLOR);
-    draw_rectangle(x += x_increase, y_pos, RECT_SIZE);
-    draw_text("5: Nuclear", x, y_pos);
+    draw_rectangle(x += x_increase, y_rect_pos, RECT_SIZE);
+    draw_text("5: Nuclear\n2000", x, y_pos);
     pop_settings();
 }
 
@@ -157,7 +158,7 @@ void BuyScene::draw_count()
 {
     double x{ Width / 10. };
     double x_increase{ Width / 6. };
-    double y_pos{ Height / 2 - 100. };
+    double y_pos{ Height * .4 };
 
     push_settings();
     draw_text(to_string(bullet_count[0]), x, y_pos);

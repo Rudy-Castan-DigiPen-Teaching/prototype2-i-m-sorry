@@ -11,9 +11,13 @@ class GameScene
 private:
 	vector<Bullet> bullets;
 	vector<Enemy> enemies;
-	int remaning_enemy = 0;
-	int timer = 0;
+	vector<int> eraseB;
+	vector<int> over_limitB;
+    vector<int> eraseE;
+	int remaining_enemy{ 0 };
+	int timer{ 0 };
 	int enemy_interver{ 400 };
+
 public:
 	void start_level();
 	void next_level();
@@ -22,14 +26,13 @@ public:
 	void push_bullets(Bullet_Type bulletType);
 	void push_enemy();
 	void move_enmey();
-	void erase_bullet();
-	void erase_enemy();
+	void bullet_limit();
 
 	void draw_bullets();
 	void draw_aim();
 	void draw_cards();
 	void draw_enemy();
+	void game_over();
 
-	void EraseEnemieByCollision();
-
+	void EraseByCollision();
 };

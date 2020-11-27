@@ -58,19 +58,21 @@ void Enemy::set_size(double sz)
 }
 void Enemy::set_color(Color ene_color)
 {
-	if (ene_color.alpha < 0 || ene_color.alpha > 256)
+	constexpr int MAX_COLOR{255};
+	constexpr int MIN_COLOR{0};
+	if (ene_color.alpha < 0 || ene_color.alpha > MAX_COLOR)
 	{
 		helper::error("Alpha value does not exist");
 	}
-	if (ene_color.red < 0 || ene_color.red > 256)
+	if (ene_color.red < MIN_COLOR || ene_color.red > MAX_COLOR)
 	{
 		helper::error("Red value does not exist");
 	}
-	if (ene_color.green < 0 || ene_color.green > 256)
+	if (ene_color.green < MIN_COLOR || ene_color.green > MAX_COLOR)
 	{
 		helper::error("Green value does not exist");
 	}
-	if (ene_color.blue < 0 || ene_color.blue > 256)
+	if (ene_color.blue < MIN_COLOR || ene_color.blue > MAX_COLOR)
 	{
 		helper::error("Blue value does not exist");
 	}
