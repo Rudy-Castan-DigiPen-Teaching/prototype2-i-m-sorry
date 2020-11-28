@@ -28,7 +28,7 @@ Term: Fall 2020
 - [x] Constants are defined as `constexpr` whenever possible - main_header.h, line 55
 - [x] Make good use of `using` statements - main_header.h, line 16
 - [x] Collection of variables are put into a struct or class object - game.h, line 12
-- [x] If using fixed size arrays then they are defined with `std::array`
+- [x] If using fixed size arrays then they are defined with `std::array` 
 - [x] Created and used your own `namespace` -main_header.h, line 19
 - [x] All long functions are broken down into helper functions - game.cpp, line 143
 - [x] Uses default arguments rather than function overloads
