@@ -1,28 +1,17 @@
-# CS120 Game Prototype 2
+# Gam100 Prototype Team Project
 
-## Introduction
+# [Guide Documents](https://docs.google.com/document/d/1ZrbgXWe3XSOz2w029bDwxg3pkAfV0GKvABg_Ka-lSRM/edit?usp=sharing)
+---
+*All‌ ‌content‌ ‌©‌ ‌2019‌ ‌DigiPen‌ ‌(USA)‌ ‌Corporation,‌ ‌all‌ ‌rights‌ ‌reserved*
+## 1.    
+Team members: SunWoo Lee, DaeHyeon Kim, HyoungWon Ahn    
+Assignment name: Prototype #2    
+Course name: CS120    
+Term: Fall 2020    
+## 2.    
+## 3.
 
-This assignment will be in sync with your GAM100 prototype 2 assignment. In this assignment you will use C++ and the `doodle` framework to create a game prototype.
-
-GAM100 will grade based off of the game design and game production. CS120 will grade based off of your use of C++.
-
-## Submission
-
-Your project will be hosted on GitHub via GitHub classroom assignment. This will also be your submission location.
-
-# Create a ReadMe
-
-
-Create a **`CS120ReadMe.md`** markdown file that defines the following.
-
-1. Your names, assignment name/number, course name, term
-2. Section describing anything incomplete about the assignment
-3. Section describing something you're proud of about the assignment
-4. Section that lists the File Name and Line Number for all code requirements
-    - one example is enough if there are multiple instances
-
-## Grading Rubric
-
+## 4.    
 - [x] [**core**] Used C++ and `doodle` framework to make a game prototype
 - [x] [**core**] Code is reasonably organized across multiple files, so that there are no big monolithic source code files.
 - [x] [**core**] Made good use of exceptions - main.cpp, line 78
@@ -52,34 +41,4 @@ Create a **`CS120ReadMe.md`** markdown file that defines the following.
 - [x] **All** Source Code has a proper header comment: Name, Assignment Name, Course Number, Term & Year.
 - [x] Followed the appropriate Code Quality Guidelines and Code Style Guidelines.
 - [x] Created a properly filled out `CS120ReadMe.md` file
-- [x] All requirements that are completed are checked off here by replacing the `[ ]` with `[x]`
-
-Scores for Exercises will be given as the following:
-
-Score        | Assessment
------------- | ----------
-Zero         | Nothing turned in at all
-Failing      | Close to meeting core requirements
-Rudimentary  | Meets all of the core requirements
-Satisfactory | Close to meeting all requirements
-Good         | Clearly meets all requirements 
-Excellent    | High quality, well beyond the requirements
-
-## Unnecessary Files
-
-Your repo must **NOT** contain
-
-User-specific files
-
-    *.suo
-    *.user
-
-Build results
-
-    [Dd]ebug/
-    [Rr]elease/
-    x64/
-
-Visual Studio Cache Files/Directories
-
-    .vs/
+- [x] All requirements that are completed are checked off here by replacing the `[ ]` with `[x]`  
