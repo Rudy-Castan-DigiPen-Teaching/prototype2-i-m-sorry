@@ -9,8 +9,10 @@ Assignment name: Prototype #2
 Course name: CS120    
 Term: Fall 2020    
 ## 2.    
-## 3.
-
+We need to more learn about using the `constexpr` functions.
+## 3.   
+If we learn more in DigiPen, we might be able to make a simple mobile game with this idea.   
+We tried that all team members were able to understand each other's ideas and code. So, we could interfere with other member’s code to make better code and it was successful.   
 ## 4.    
 - [x] [**core**] Used C++ and `doodle` framework to make a game prototype
 - [x] [**core**] Code is reasonably organized across multiple files, so that there are no big monolithic source code files.
