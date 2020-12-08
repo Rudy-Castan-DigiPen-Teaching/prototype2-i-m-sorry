@@ -62,5 +62,5 @@ constexpr Color BULLET_3_COLOR{ 0, 0, 255, 100 };
 constexpr Color BULLET_4_COLOR{ 255, 0, 0 };
 constexpr Color BULLET_5_COLOR{ 255, 255, 0 };
 
-inline void setup();
+void setup();
 constexpr int get_splash_time(int time);
